@@ -1,0 +1,50 @@
+
+<head>
+  <link rel="stylesheet" href="styleLogin2.css">
+</head>
+<body>
+ <div class="wrapper">
+   <header>Signup</header>
+   <p class="text-white-50 mb-5">
+     <% if (messages.error) { %>
+       <%= messages.error %>
+     <% } %>
+   </p>
+   <form action="/sign-up/reg" method="POST">
+    <div class="field fName">
+      <div class="input-area">
+        <input type="text" id="fName" name="fName" placeholder="First Name" required>
+      </div>
+    </div>
+    <div class="field lName">
+      <div class="input-area">
+        <input type="text" id="lName" name="lName" placeholder="Last Name" required>
+      </div>
+    </div>
+     <div class="field email">
+       <div class="input-area">
+         <input type="email" id="email" name="email" placeholder="Email Address" required>
+         <i class="error error-icon fas fa-exclamation-circle"></i>
+       </div>
+       <div class="error error-txt">Email can't be blank</div>
+     </div>
+     <div class="field password">
+       <div class="input-area">
+         <input type="password" id="password" name="password" placeholder="Password" required>
+         <i class="error error-icon fas fa-exclamation-circle"></i>
+       </div>
+       <div class="error error-txt">Password can't be blank</div>
+     </div>
+     <div class="field rpassword">
+      <div class="input-area">
+        <input type="password" id="rpassword" name="rpassword" placeholder="Confirm Password" required>
+      </div>
+    </div>
+     <input type="submit">
+   </form>
+   <div class="sign-txt">Already registered? <a href="login">Login</a></div>
+ </div>
+ <h2 data-text="Cicada">Cicada</h2>
+
+</body>
+</html>
