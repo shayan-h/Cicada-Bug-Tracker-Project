@@ -1,6 +1,48 @@
-Main Dashboard
-<br> 
-<a href="/login">Logout</a>
-<form action="/logout?_method=DELETE" method="POST">
-    <button type="submit">Log Out</button>
-</form>
+
+<head>
+    <link rel="stylesheet" href="styleDashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  </head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#" class="logo">
+                    <img src="img/logo1.jpg" alt="">
+                    <span class="nav-item">Cicada</span>
+                </a></li>
+                <li><a href="">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a></li>
+                <li><a href="">
+                    <i class="fas fa-project-diagram"></i>
+                    <span class="nav-item">Projects</span>
+                </a></li>
+                <li><a href="">
+                    <i class="fas fa-tags"></i>
+                    <span class="nav-item">Tags</span>
+                </a></li>
+                <li><a href="">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item">Group</span>
+                </a></li>
+                <li><a href="">
+                    <i class="fas fa-cog"></i>
+                    <span class="nav-item">Settings</span>
+                </a></li>
+                <form class="sign-out" action="/logout?_method=DELETE" method="POST">
+                    <button type="submit">Log Out</button>
+                </form>
+            </ul>
+        </nav>
+        <section class="main">
+            <div class="main-top">
+                <h1>Dashboard</h1>
+                
+            </div>
+        </section>
+    </div>
+
+    
+</body>

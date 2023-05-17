@@ -34,7 +34,7 @@ app.use(express.urlencoded({extended: false}))
 const store = new BetterMemoryStore({expire: 60*60*1000, debug: true})
 app.use(session({
     name: 'YOYOYO',
-    secret: '********************',
+    secret: 'VERYVERYSECRETYO',
     store: store,
     resave: true,
     saveUninitialized: true
@@ -118,7 +118,7 @@ app.delete('/logout', (req, res) => {
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '*********************',
+    password: 'Roadkiller612$',
     database: 'cicadadb'
 })
 connection.connect(function(err) {
