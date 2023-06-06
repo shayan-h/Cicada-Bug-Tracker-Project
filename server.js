@@ -118,7 +118,7 @@ app.delete('/logout', (req, res) => {
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '************',
+    password: '',
     database: 'cicadadb'
 })
 connection.connect(function(err) {
