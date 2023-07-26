@@ -36,7 +36,6 @@ function emailExists(email) {
             reject(err)
         }
         if (rows.length == 0) {
-            console.log('WTF')
             console.log(rows)
             resolve(false)
         } else {
@@ -65,6 +64,7 @@ router.post('/reg', async (req, res) => {
                     console.log('Success query')
                 }
             })
+            const main_email = req.body.email
             res.redirect('/login')
             console.log('Registeration successful')
         }

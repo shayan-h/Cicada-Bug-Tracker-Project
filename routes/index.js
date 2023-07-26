@@ -10,7 +10,7 @@ router.get('/', isAuthenticated, (req, res) => {
 
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-      res.redirect('/dashboard');
+      res.redirect('/dashboard'); // Only redirects when attempting to go to login after already logged in
     }
     return next();
 }
