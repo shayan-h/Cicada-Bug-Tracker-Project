@@ -13,14 +13,14 @@ connection.connect(function(err) {
       console.error('Error connecting: ' + err.stack)
       return
   }
-  console.log('Register connected as id ' + connection.threadId)
+  console.log('Dashboard connected as id ' + connection.threadId)
 })
 
 
 // Main dashboard route ?
 router.get('/', isAuthenticated, (req, res) => { // Check authenticated
     const email = req.user.email;
-    const query = "SELECT first_name, user_role FROM users WHERE email = ?";
+    const query = "SELECT first_name, user_role, projects FROM users WHERE email = ?";
     connection.query(query, [email], (err, results) => {
       if (err) {
         // Handle any errors
@@ -28,7 +28,8 @@ router.get('/', isAuthenticated, (req, res) => { // Check authenticated
         return;
       }
       const uzer = results[0]
-      res.render('dashboard/dashboardIndex', {email: uzer.first_name, userRole: uzer.user_role}) // renders view file
+      // const userProjects = JSON.parse(results[0].projects)
+      res.render('dashboard/dashboardIndex', {email: uzer.first_name, userRole: uzer.user_role, /*projects: userProjects*/}) // renders view file
     })
 })
 
