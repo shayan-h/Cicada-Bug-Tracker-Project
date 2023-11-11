@@ -5,7 +5,7 @@ const mysql = require('mysql2')
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'Roadkiller612$',
+  password: '**',
   database: 'cicadadb'
 })
 connection.connect(function(err) {
