@@ -123,30 +123,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Cicada Bug Tracker</td>
-                                            <td>Shayan Hussain, Shay H., ...</td>
+                                        <% projects.forEach(project => { %>
+                                          <tr>
+                                            <td><%= project.projName %></td>
+                                            <td><%= project.teamMembers %></td>
                                             <td>
-                                                <span class="status green"></span>
-                                                Complete
+                                              <span class="status <%= project.status === 'Complete' ? 'green' : 'red' %>"></span>
+                                              <%= project.status %>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cicada Bug Tracker</td>
-                                            <td>Shayan Hussain, Shay H., ...</td>
-                                            <td>
-                                                <span class="status green"></span>
-                                                Complete
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cicada Bug Tracker</td>
-                                            <td>Shayan Hussain, Shay H., ...</td>
-                                            <td>
-                                                <span class="status green"></span>
-                                                Complete
-                                            </td>
-                                        </tr>
+                                          </tr>
+                                        <% }); %>
                                     </tbody>
                                 </table>
                             </div>

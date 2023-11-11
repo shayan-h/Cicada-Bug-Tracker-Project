@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const mysql = require('mysql2')
+const config = require('./config');
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Roadkiller612$',
-  database: 'cicadadb'
+  host: config.database.host,
+  user: config.database.user,
+  password: config.database.password,
+  database: config.database.database
 })
 connection.connect(function(err) {
   if (err) {

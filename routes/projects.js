@@ -1,20 +1,22 @@
 const express = require('express')
 const router = express.Router()
 const mysql = require('mysql2')
+const config = require('./config');
+
 
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Roadkiller612$',
-    database: 'cicadadb'
-  })
-  connection.connect(function(err) {
-    if (err) {
-        console.error('Error connecting: ' + err.stack)
-        return
-    }
-    console.log('Proj connected as id ' + connection.threadId)
-  })
+  host: config.database.host,
+  user: config.database.user,
+  password: config.database.password,
+  database: config.database.database
+})
+connection.connect(function(err) {
+  if (err) {
+      console.error('Error connecting: ' + err.stack)
+      return
+  }
+  console.log('Proj connected as id ' + connection.threadId)
+})
 
 // Most recent project route / all projects
 router.get('/', (req, res) => { 

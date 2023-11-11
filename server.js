@@ -26,6 +26,7 @@ const tagsRouter = require('./routes/tags') // reference to tags route
 const registerRouter = require('./routes/register') // reference to tags route
 const settingsRouter = require('./routes/settings') // reference to settings route
 const organizationRouter = require('./routes/organization') // reference to settings route
+const config = require('./routes/config');
 const { use } = require('passport');
 
 // Set up the view engine and views directory
@@ -126,10 +127,10 @@ app.delete('/logout', (req, res) => {
 
 // Create a connection to the database -------------------------------------------------------
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '**',
-    database: 'cicadadb'
+    host: config.database.host,
+    user: config.database.user,
+    password: config.database.password,
+    database: config.database.database
 })
 
 // Connect to the database
