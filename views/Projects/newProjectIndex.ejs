@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New project</title>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="styleDashboard.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Create a New Project</h2>
+        <form id="newProjectForm" action="" method="POST">
+            <label for="projectName">Project Name*</label>
+            <input type="text" id="projectName" name="projectName" required>
+
+            <label for="projectDescription">Project Description</label>
+            <textarea id="projectDescription" name="projectDescription" required></textarea>
+
+            <label for="teamMembers">Team Members</label>
+            <div id="teamMembersContainer">
+                <input type="text" name="teamMembers[]" placeholder="Add team member">
+            </div>
+            <button type="button" onclick="addTeamMember()">Add Team Member</button>
+
+            <button type="submit">Create Project</button>
+        </form>
+    </div>
+
+    <script>
+        let count = 1
+        // dynamically adds given team members to "list" displayed to user
+        function addTeamMember() {
+            const container = document.getElementById('teamMembersContainer');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = `teamMembers[${count}]`;
+            input.placeholder = "Add team member";
+            container.appendChild(input);
+            count++
+        }
+    </script>
+</body>
+</html>

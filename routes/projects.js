@@ -33,14 +33,16 @@ router.get('/', (req, res) => {
     })
 })
 
+/*
 // New project route (display form)
 router.get('/new', (req, res) => {
-    res.render('projects/new')
+    res.render('projects/newProject')
 })
 
 // Create project route (actually creating it)
 router.post('/', (req, res) => {
     res.send('Create')
 })
+*/
 
 module.exports = router // exports router

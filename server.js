@@ -6,9 +6,11 @@ const flash  = require('express-flash')
 const BetterMemoryStore = require('session-memory-store')(session)
 const LocalStrategy = require('passport-local').Strategy
 const methodOverride = require('method-override')
+const bodyParser = require('body-parser')
 
 const express = require('express') // import express
 const app = express()
+
 
 // Import necessary middleware
 const cookie = require('cookie-parser') // cookie
@@ -25,8 +27,10 @@ const projectsRouter = require('./routes/projects') // reference to projects rou
 const tagsRouter = require('./routes/tags') // reference to tags route
 const registerRouter = require('./routes/register') // reference to tags route
 const settingsRouter = require('./routes/settings') // reference to settings route
-const organizationRouter = require('./routes/organization') // reference to settings route
+const organizationRouter = require('./routes/organization') // reference to organization route
+const newProjectRouter = require('./routes/newProject') // reference to newProject route
 const config = require('./routes/config');
+
 const { use } = require('passport');
 
 // Set up the view engine and views directory
@@ -158,6 +162,10 @@ app.use('/tags', tagsRouter) // use the tags router
 app.use('/sign-up', registerRouter) // use the register router
 app.use('/settings', settingsRouter) // use the settings router
 app.use('/organization', organizationRouter) // use the organization router
+app.use('/new-project', newProjectRouter) // use the newProject router
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // Exports 
 module.exports = app

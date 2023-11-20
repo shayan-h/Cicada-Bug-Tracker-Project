@@ -34,7 +34,7 @@ router.get('/', isAuthenticated, (req, res) => { // Check authenticated
 
       for (const projectId in userProjects) {
         const projectDetails = await getProjectDetails(userProjects[projectId]);
-        console.log('Project Details:', projectDetails);
+        // console.log('Project Details:', projectDetails);
         projectsArray.push({
           id: userProjects[projectId],
           projName: projectDetails.project_name,
