@@ -24,7 +24,6 @@ router.post('/', (req, res) => {
   const projectName = req.body.projectName
   const projectDescription = req.body.projectDescription
   const teamMembers = req.body.teamMembers || []
-  console.log(teamMembers)
 
   const teamMembersJson = {}
   teamMembers.forEach((member, index) => {
