@@ -23,7 +23,12 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const projectName = req.body.projectName
   const projectDescription = req.body.projectDescription
-  const teamMembers = req.body.teamMembers || []
+  let teamMembers = req.body.teamMembers || []
+  // If teamMembers is a string, convert it to an array
+  if (typeof teamMembers === 'string') {
+    teamMembers = JSON.parse(teamMembers).filter(member => member !== "");
+  }
+  console.log(teamMembers);
 
   const teamMembersJson = {}
   teamMembers.forEach((member, index) => {

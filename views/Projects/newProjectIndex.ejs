@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <h2>Create a New Project</h2>
-        <form id="newProjectForm" action="" method="POST">
+        <form id="newProjectForm" action="" method="POST" onsubmit="submitForm(event)">
             <label for="projectName">Project Name*</label>
             <input type="text" id="projectName" name="projectName" required>
 
@@ -38,6 +38,23 @@
             input.placeholder = "Add team member";
             container.appendChild(input);
             count++
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+
+            const teamMembers = [];
+            document.querySelectorAll('[name^="teamMembers"]').forEach(input => {
+                teamMembers.push(input.value);
+            })
+
+            const teamMembersInput = document.createElement('input');
+            teamMembersInput.type = 'hidden';
+            teamMembersInput.name = 'teamMembers';
+            teamMembersInput.value = JSON.stringify(teamMembers);
+            document.getElementById('newProjectForm').appendChild(teamMembersInput);
+
+            document.getElementById('newProjectForm').submit();
         }
     </script>
 </body>
