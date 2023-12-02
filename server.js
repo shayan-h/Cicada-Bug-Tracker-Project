@@ -108,12 +108,12 @@ passport.deserializeUser(function(id, done) {
 })
 
 // Set up login route
-app.use('/login', indexRouter)
+app.use('/', indexRouter)
 
 // Handle login post request
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/dashboard',
-    failureRedirect: '/login',
+    failureRedirect: '/',
     failureFlash: true
 }), function(res, req, info) {
     res.render('index', {message: req.flash('message')})
@@ -126,7 +126,7 @@ app.delete('/logout', (req, res) => {
             return next(err)
         }
     })
-    res.redirect('/login')
+    res.redirect('/')
 })
 
 // Create a connection to the database -------------------------------------------------------
@@ -147,7 +147,7 @@ connection.connect(function(err) {
 })
 
 // Test SQL query ------------------------------------------------------------------------------
-connection.query('SELECT * FROM cicadadb.users', function(err, rows) {
+connection.query('SELECT * FROM users', function(err, rows) {
     if (err) {
         console.error(err)
         return 

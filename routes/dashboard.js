@@ -21,7 +21,7 @@ connection.connect(function(err) {
 // Main dashboard route ?
 router.get('/', isAuthenticated, (req, res) => { // Check authenticated
     const email = req.user.email;
-    const query = "SELECT first_name, user_role, projects FROM users WHERE email = ?";
+    const query = "SELECT first_name, projects FROM users WHERE email = ?";
     connection.query(query, [email], async (err, results) => {
       if (err) {
         // Handle any errors
@@ -44,8 +44,7 @@ router.get('/', isAuthenticated, (req, res) => { // Check authenticated
       }
 
       res.render('dashboard/dashboardIndex', {
-        email: uzer.first_name, 
-        userRole: uzer.user_role, 
+        email: uzer.first_name,
         projects: projectsArray
       }) // renders view file
     })
@@ -55,7 +54,7 @@ function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login');
+  res.redirect('/');
 }
 
 function getProjectDetails(projectId) {

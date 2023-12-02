@@ -21,7 +21,7 @@ connection.connect(function(err) {
 // Most recent project route / all projects
 router.get('/', (req, res) => { 
     const email = req.user.email;
-    const query = "SELECT first_name, user_role FROM users WHERE email = ?";
+    const query = "SELECT first_name FROM users WHERE email = ?";
     connection.query(query, [email], (err, results) => {
       if (err) {
         // Handle any errors

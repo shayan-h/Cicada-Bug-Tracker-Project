@@ -55,8 +55,8 @@ router.post('/reg', async (req, res) => {
             console.log(emailExists(req.body.email))
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
             await connection.promise().query(
-            'INSERT INTO users (email, first_name, last_name, user_role, hashed_password) VALUES (?, ?, ?, ?, ?)', 
-            [req.body.email, req.body.fName, req.body.lName, 'dev', hashedPassword], (err, results) => {
+            'INSERT INTO users (email, first_name, last_name, hashed_password) VALUES (?, ?, ?, ?)', 
+            [req.body.email, req.body.fName, req.body.lName, hashedPassword], (err, results) => {
                 if (err) {
                     console.log('This is the error: ' + error)
                 } else {
@@ -64,7 +64,7 @@ router.post('/reg', async (req, res) => {
                 }
             })
             const main_email = req.body.email
-            res.redirect('/login')
+            res.redirect('/')
             console.log('Registeration successful')
         }
     } catch {

@@ -21,7 +21,7 @@ connection.connect(function(err) {
 // Main dashboard route ?
 router.get('/', isAuthenticated, (req, res) => { // Check authenticated
     const email = req.user.email;
-    const query = "SELECT first_name, user_role FROM users WHERE email = ?";
+    const query = "SELECT first_name FROM users WHERE email = ?";
     connection.query(query, [email], (err, results) => {
       if (err) {
         // Handle any errors
@@ -42,7 +42,7 @@ function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
       return next();
     }
-    res.redirect('/login');
+    res.redirect('/');
 }
 
 
