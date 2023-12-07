@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
   let teamMembers = req.body.teamMembers || []
   // If teamMembers is a string, convert it to an array
   if (typeof teamMembers === 'string') {
-    teamMembers = JSON.parse(teamMembers).filter(member => member !== "");
+    teamMembers = JSON.parse(teamMembers).filter(member => member !== "")
   }
   console.log(teamMembers);
 
@@ -43,10 +43,10 @@ router.post('/', (req, res) => {
   connection.query(query, [projectName, teamMembersJsonToString, statusString, projectDescription],
     (err, results) => {
       if (err) {
-        console.error(err);
+        console.error(err)
         return;
       }
-      console.log('Project created succesfully');
+      console.log('Project created succesfully')
     })
   
   const query2 = "SELECT id FROM projects WHERE project_name = ?"
@@ -57,20 +57,32 @@ router.post('/', (req, res) => {
         console.error(err);
         return;
       }
-      console.log('Project id fetched succesfully');
+      console.log('Project id fetched succesfully')
       project_id = results[0].id;
       console.log('Project ID: ', project_id)
-
-      const query3 = "UPDATE users SET projects = JSON_SET(COALESCE(projects, '{}'), '$.proj', '?') WHERE email = ?"
-      connection.query(query3, [project_id, email],
+      const query3 = "SELECT projects FROM users WHERE email = ?"
+      connection.query(query3, [email],
         (err, results) => {
           if (err) {
-          console.error(err); 
-          return;
-        }
-        console.log('Project added to user');
-      })
-      res.redirect('/dashboard')
+            console.error(err)
+            return;
+          }
+          let projectsJson = results[0].projects ? results[0].projects : {}
+          const projKey = `proj${Object.keys(projectsJson).length + 1}`
+          
+          projectsJson[projKey] = `${project_id}`
+      
+          const updateQuery = "UPDATE users SET projects = ? WHERE email = ?"
+          connection.query(updateQuery, [JSON.stringify(projectsJson), email],
+            (err, updateResults) => {
+              if (err) {
+                console.error(err);
+                return;
+              }
+              console.log('Project added to user')
+              res.redirect('/dashboard')
+            })
+        })    
   })
 
   

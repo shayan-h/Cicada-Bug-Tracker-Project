@@ -96,6 +96,9 @@ header {
     width: calc(100% - 70px);
     left: 70px;
 }
+label[for="nav-toggle"] {
+    cursor: pointer;
+}
 header h2 {
     color: #222;
 }
@@ -206,6 +209,7 @@ main {
     font-size: 0.8rem;
     padding: 0.5rem 1rem;
     border: 1px solid var(--main-color);
+    cursor: pointer;
 }
 table {
     border-collapse: collapse;

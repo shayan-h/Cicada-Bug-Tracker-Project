@@ -108,8 +108,14 @@
                         <div class="card-header">
                             <h3>Projects</h3>
 
-                            <button>New Project <span class="las la-plus"></span></button>
-                            <a href="new-project">New *replace with button*</a>
+                            <button id="newProjectButton">New Project <span class="las la-plus"></span></button>
+
+                            <script>
+                                const newProjectButton = document.getElementById('newProjectButton')
+                                newProjectButton.addEventListener('click', function() {
+                                    window.location.href = 'new-project'
+                                })
+                            </script>
                         </div>
 
                         <div class="card-body">
