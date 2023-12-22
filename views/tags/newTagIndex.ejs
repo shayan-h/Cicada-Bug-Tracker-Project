@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tag</title>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="styleDashboard.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Create a New Project</h2>
+        <form id="tagForm" action="" method="POST" onsubmit="submitForm(event)">
+            <label for="tagProject">Tag Name*</label>
+            <input type="text" id="tagProject" name="tagProject" required>
+
+            <label for="tagName">Tag Name*</label>
+            <input type="text" id="tagName" name="tagName" required>
+
+            <label for="tagDescription">Tag Description</label>
+            <textarea id="tagDescription" name="tagDescription" required></textarea>
+
+            <label for="tagSeverity">Tag Severity</label>
+            <select id="tagSeverity" name="tagSeverity" required>
+                <option value="Priority">Priority</option>
+                <option value="Non-critical">Non-critical</option>
+                <option value="Minor">Minor</option>
+                <option value="Catastrophic">Catastrophic</option>
+            </select>
+
+            <label for="teamMembers">Assign Team Members</label>
+            <div id="teamMembersContainer">
+                <input type="text" name="teamMembers[]" placeholder="Add team member">
+            </div>
+            <button type="button" onclick="addTeamMember()">Add Team Member</button>
+
+            <button type="submit">Create Tag</button>
+        </form>
+    </div>
+
+    <script>
+        let count = 1
+        // dynamically adds given team members to "list" displayed to user
+        function addTeamMember() {
+            const container = document.getElementById('teamMembersContainer');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = `teamMembers[${count}]`;
+            input.placeholder = "Add team member";
+            container.appendChild(input);
+            count++
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+
+            const teamMembers = [];
+            document.querySelectorAll('[name^="teamMembers"]').forEach(input => {
+                teamMembers.push(input.value);
+            })
+
+            const teamMembersInput = document.createElement('input');
+            teamMembersInput.type = 'hidden';
+            teamMembersInput.name = 'teamMembers';
+            teamMembersInput.value = JSON.stringify(teamMembers);
+            document.getElementById('tagForm').appendChild(teamMembersInput);
+
+            document.getElementById('tagForm').submit();
+        }
+    </script>
+</body>
+</html>
