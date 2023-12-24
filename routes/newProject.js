@@ -39,6 +39,9 @@ router.post('/', (req, res) => {
   const teamMembersJsonToString = JSON.stringify(teamMembersJson);
   const statusString = "In Progress"
 
+  // SEND team members email to join project through API
+
+  // Add new project into projects table
   const query = "INSERT INTO projects (project_name, team_members, stat, des) VALUES (?, ?, ?, ?)"
   connection.query(query, [projectName, teamMembersJsonToString, statusString, projectDescription],
     (err, results) => {
@@ -49,6 +52,7 @@ router.post('/', (req, res) => {
       console.log('Project created succesfully')
     })
   
+  // Get project ID of the project that was just added so that it can be added to the user's projects column
   const query2 = "SELECT id FROM projects WHERE project_name = ?"
   let project_id
   connection.query(query2, [projectName],
@@ -59,7 +63,8 @@ router.post('/', (req, res) => {
       }
       console.log('Project id fetched succesfully')
       project_id = results[0].id;
-      console.log('Project ID: ', project_id)
+
+      // Get the users projects column to update it with latest project
       const query3 = "SELECT projects FROM users WHERE email = ?"
       connection.query(query3, [email],
         (err, results) => {
@@ -71,7 +76,8 @@ router.post('/', (req, res) => {
           const projKey = `proj${Object.keys(projectsJson).length + 1}`
           
           projectsJson[projKey] = `${project_id}`
-      
+          
+          // Update the user's project column
           const updateQuery = "UPDATE users SET projects = ? WHERE email = ?"
           connection.query(updateQuery, [JSON.stringify(projectsJson), email],
             (err, updateResults) => {
@@ -82,10 +88,34 @@ router.post('/', (req, res) => {
               console.log('Project added to user')
               res.redirect('/dashboard')
             })
-        })    
-  })
+        })  
+        
+        // Update the team member's project column
+        teamMembers.forEach((teamMemberEmail) => {
+          const updateTeamMemberQuery = "SELECT projects FROM users WHERE email = ?"
+          connection.query(updateTeamMemberQuery, [teamMemberEmail],
+            (err, updateTeamMemberRes) => {
+              if (err) {
+                console.log(err)
+                return;
+              }
+              let teamMemberProjectsJson = updateTeamMemberRes[0].projects ? updateTeamMemberRes[0].projects : {}
+              const teamMemberProjKey = `proj${Object.keys(teamMemberProjectsJson).length + 1}`
+              teamMemberProjectsJson[teamMemberProjKey] = `${project_id}`
 
-  
+              // Update the team member's projects column
+              const updateTeamMemberProjectsQuery = "UPDATE users SET projects = ? WHERE email = ?"
+                connection.query(updateTeamMemberProjectsQuery, [JSON.stringify(teamMemberProjectsJson), teamMemberEmail],
+                  (err, updateTeamMemberResults) => {
+                    if (err) {
+                      console.error(err)
+                      return
+                    }
+                    console.log(`Project added to team member: ${teamMemberEmail}`)
+                  })
+            })
+        })
+  })
 })
 
 module.exports = router // exports router
