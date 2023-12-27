@@ -28,7 +28,7 @@ const tagsRouter = require('./routes/tags') // reference to tags route
 const registerRouter = require('./routes/register') // reference to tags route
 const settingsRouter = require('./routes/settings') // reference to settings route
 const organizationRouter = require('./routes/organization') // reference to organization route
-const newProjectRouter = require('./routes/newProject') // reference to newProject route
+const newProjectRouter = require('./models/newProject') // reference to newProject route
 const config = require('./routes/config');
 
 const { use } = require('passport');
